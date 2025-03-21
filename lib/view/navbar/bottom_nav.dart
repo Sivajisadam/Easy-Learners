@@ -1,12 +1,11 @@
-import 'package:easy_learners/_controllers/bottom_nav_controller.dart';
-import 'package:easy_learners/view/utils/constants.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
-import 'package:iconify_flutter_plus/icons/iconoir.dart';
+import 'dart:io';
+
 import 'package:iconify_flutter_plus/icons/majesticons.dart';
 import 'package:iconify_flutter_plus/icons/material_symbols.dart';
+import 'package:iconify_flutter_plus/icons/mdi.dart';
 import 'package:iconify_flutter_plus/icons/tabler.dart';
+import 'package:iconify_flutter_plus/icons/uiw.dart';
+import 'package:easy_learners/view/utils/common_imports.dart';
 
 class BottomNav extends GetWidget<BottomNavController> {
   const BottomNav({super.key});
@@ -19,7 +18,26 @@ class BottomNav extends GetWidget<BottomNavController> {
             if (controller.currentIndex.value != 0) {
               controller.changeIndex(0);
             } else {
-              // exit(0);
+              reusabledialogue(
+                text: "Are you sure do you want to exit app?",
+                child: Column(
+                  children: [
+                    Iconify(
+                      Uiw.logout,
+                      color: Colors.red,
+                      size: 40,
+                    ),
+                    vSpace(10),
+                    reusableText(
+                        giveText: "Are you sure do you want to exit this app?",
+                        textColor: Colors.black,
+                        fontsize: 18,
+                        maxLine: 2,
+                        textAlignment: TextAlign.center)
+                  ],
+                ),
+                ontap: () => exit(0),
+              );
             }
           },
           child: Scaffold(
@@ -56,7 +74,7 @@ class BottomNav extends GetWidget<BottomNavController> {
                     label: 'Maps'),
                 BottomNavigationBarItem(
                   icon: Iconify(
-                    Iconoir.settings_profiles,
+                    Mdi.face_man,
                     color: controller.currentIndex.value == 3
                         ? ColorConstants.primaryColor
                         : Colors.black38,

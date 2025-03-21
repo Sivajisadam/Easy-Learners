@@ -1,8 +1,4 @@
-import 'package:easy_learners/view/utils/constants.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
+import 'common_imports.dart';
 
 Widget reusableText(
         {required String giveText,
@@ -229,7 +225,8 @@ Container reuseContainer({
   );
 }
 
-Future reusabledialogue({required String text, Function()? ontap}) {
+Future reusabledialogue(
+    {required String text, Function()? ontap, Widget? child}) {
   return showDialog(
       context: Get.context!,
       builder: (context) {
@@ -250,11 +247,12 @@ Future reusabledialogue({required String text, Function()? ontap}) {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    reusableText(
-                        giveText: text,
-                        textColor: Colors.black,
-                        fontsize: 18,
-                        maxLine: 2),
+                    child ??
+                        reusableText(
+                            giveText: text,
+                            textColor: Colors.black,
+                            fontsize: 18,
+                            maxLine: 2),
                     vSpace(20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

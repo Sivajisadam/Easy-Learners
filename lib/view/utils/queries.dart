@@ -68,4 +68,18 @@ query getSessionId(\$current_user:String,\$peer_user:String){
   }
 }
  ''';
+
+  static const getFcm = '''query getFcm(\$token:String){
+  fcm_tokens(where:{token:{_eq:\$token}}){
+    id
+  }
+} ''';
+
+  static const getPeerUserToken = '''
+query getFcm(\$user_id:String){
+  fcm_tokens(where:{user_id:{_eq:\$user_id}},order_by:{updated_at:desc}){
+  token
+  }
+}
+ ''';
 }

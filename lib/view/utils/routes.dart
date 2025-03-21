@@ -1,14 +1,4 @@
-import 'package:easy_learners/_bindings/bottom_nav_binding.dart';
-import 'package:easy_learners/_bindings/chat_binding.dart';
-import 'package:easy_learners/_bindings/login_binding.dart';
-import 'package:easy_learners/view/auth/forgot_password.dart';
-import 'package:easy_learners/view/navbar/bottom_nav.dart';
-import 'package:easy_learners/view/auth/login.dart';
-import 'package:easy_learners/view/auth/onboarding.dart';
-import 'package:easy_learners/view/auth/signup.dart';
-import 'package:easy_learners/view/auth/splash_screen.dart';
-import 'package:easy_learners/view/navbar/chat_details.dart';
-import 'package:get/get.dart';
+import 'package:easy_learners/view/utils/common_imports.dart';
 
 class Routes {
   static const String splasScreen = "/splash-screen";

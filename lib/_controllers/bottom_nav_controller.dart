@@ -1,22 +1,5 @@
-import 'dart:async';
-import 'dart:convert';
-
-import 'package:easy_learners/_controllers/services_controller.dart';
-import 'package:easy_learners/_models/assistant_model.dart';
-import 'package:easy_learners/_models/user_details.dart';
-import 'package:easy_learners/_models/users_model.dart';
-import 'package:easy_learners/view/navbar/assistant.dart';
-import 'package:easy_learners/view/navbar/chat_screen.dart';
-import 'package:easy_learners/view/navbar/profile.dart';
-import 'package:easy_learners/view/navbar/search.dart';
-import 'package:easy_learners/view/utils/constants.dart';
-import 'package:easy_learners/view/utils/mutation_queries.dart';
-import 'package:easy_learners/view/utils/queries.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
+import 'package:easy_learners/view/utils/common_imports.dart';
 
 class BottomNavController extends GetxController {
   static BottomNavController get to => Get.find<BottomNavController>();
@@ -51,7 +34,7 @@ class BottomNavController extends GetxController {
   @override
   void onInit() {
     getUserList();
-
+    getUserFcm();
     super.onInit();
   }
 
@@ -65,6 +48,42 @@ class BottomNavController extends GetxController {
     currentIndex.value = index;
     if (index == pages.length - 1 && userDetails.id == null) {
       getUserData();
+    }
+  }
+
+  getUserFcm() async {
+    final fcmToken = await FirebaseMessaging.instance.getToken();
+
+    ServiceController.to.getDataFunction(Queries.getFcm, {
+      "token": fcmToken,
+    }).then((v) {
+      printInfo(info: v.data['data']['fcm_tokens'].toString());
+      v.data['data']['fcm_tokens'].isNotEmpty
+          ? updateFcmToken(v.data['data']['fcm_tokens'][0]['id'])
+          : updateFcmToken('');
+    });
+  }
+
+  updateFcmToken(String id) async {
+    final fcmToken = await FirebaseMessaging.instance.getToken();
+    printInfo(info: fcmToken.toString());
+    if (id.isNotEmpty) {
+      ServiceController.to
+          .graphqlMutation(ConstantMutationQuaries.updateOne("fcm_tokens"), {
+        "id": id,
+        "object": {
+          "token": fcmToken,
+          "user_id": auth.currentUser!.uid,
+        }
+      });
+    } else {
+      ServiceController.to
+          .graphqlMutation(ConstantMutationQuaries.insertOne("fcm_tokens"), {
+        "object": {
+          "token": fcmToken,
+          "user_id": auth.currentUser!.uid,
+        }
+      });
     }
   }
 

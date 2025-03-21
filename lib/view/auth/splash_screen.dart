@@ -1,10 +1,4 @@
-import 'dart:async';
-
-import 'package:easy_learners/view/utils/local_storage.dart';
-import 'package:easy_learners/view/utils/routes.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:easy_learners/view/utils/common_imports.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

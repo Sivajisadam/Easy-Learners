@@ -1,6 +1,4 @@
-import 'package:easy_learners/_controllers/main_controller.dart';
-import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:easy_learners/view/utils/common_imports.dart';
 
 class MapsScreen extends StatefulWidget {
   const MapsScreen({super.key});

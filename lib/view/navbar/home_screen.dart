@@ -1,9 +1,4 @@
-import 'package:easy_learners/_controllers/bottom_nav_controller.dart';
-import 'package:easy_learners/view/navbar/assistant.dart';
-import 'package:easy_learners/view/navbar/search.dart';
-import 'package:easy_learners/view/utils/reusable_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:easy_learners/view/utils/common_imports.dart';
 
 class HomeScreen extends GetWidget<BottomNavController> {
   const HomeScreen({super.key});

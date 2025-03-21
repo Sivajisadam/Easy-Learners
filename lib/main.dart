@@ -1,11 +1,7 @@
 import 'package:easy_learners/_bindings/init_binding.dart';
 import 'package:easy_learners/firebase_options.dart';
-import 'package:easy_learners/view/utils/routes.dart';
+import 'package:easy_learners/view/utils/common_imports.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

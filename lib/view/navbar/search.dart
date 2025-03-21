@@ -1,10 +1,5 @@
-import 'package:easy_learners/_controllers/bottom_nav_controller.dart';
-import 'package:easy_learners/_controllers/main_controller.dart';
-import 'package:easy_learners/view/utils/constants.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:place_picker_google/place_picker_google.dart';
+import 'package:easy_learners/view/utils/common_imports.dart';
 
 class Search extends StatelessWidget {
   const Search({super.key});

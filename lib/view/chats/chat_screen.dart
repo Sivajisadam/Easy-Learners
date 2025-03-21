@@ -1,8 +1,6 @@
 import 'package:easy_learners/_controllers/bottom_nav_controller.dart';
-import 'package:easy_learners/view/utils/reusable_widget.dart';
-import 'package:easy_learners/view/utils/routes.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
+import 'package:easy_learners/view/utils/common_imports.dart';
 
 class ChatScreen extends GetWidget<BottomNavController> {
   const ChatScreen({super.key});
@@ -10,6 +8,7 @@ class ChatScreen extends GetWidget<BottomNavController> {
   @override
   Widget build(BuildContext context) {
     controller.chatList.aiChat == null ? controller.getUserList() : null;
+    controller.update();
     return Obx(
       () => Scaffold(
         body: SafeArea(
@@ -60,8 +59,6 @@ class ChatScreen extends GetWidget<BottomNavController> {
                                 : "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg"),
                           ),
                           title: Text(controller.userList[index].name ?? ""),
-                          // subtitle: Text("Hello, how are you?"),
-                          // trailing: Text("12:30 PM"),
                         ),
                       );
                     },

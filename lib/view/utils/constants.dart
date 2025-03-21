@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:easy_learners/view/utils/common_imports.dart';
 
 class ColorConstants {
   static const primaryColor = Color(0xff232B39);

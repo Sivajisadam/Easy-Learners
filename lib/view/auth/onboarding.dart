@@ -1,11 +1,4 @@
-import 'package:easy_learners/_controllers/auth_controller.dart';
-import 'package:easy_learners/view/utils/constants.dart';
-import 'package:easy_learners/view/utils/local_storage.dart';
-import 'package:easy_learners/view/utils/reusable_widget.dart';
-import 'package:easy_learners/view/utils/routes.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+import 'package:easy_learners/view/utils/common_imports.dart';
 
 class Onboarding extends GetWidget<AuthController> {
   const Onboarding({super.key});

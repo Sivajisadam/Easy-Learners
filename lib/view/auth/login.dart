@@ -1,11 +1,5 @@
-import 'package:easy_learners/_controllers/auth_controller.dart';
-import 'package:easy_learners/view/utils/constants.dart';
-import 'package:easy_learners/view/utils/reusable_widget.dart';
-import 'package:easy_learners/view/utils/routes.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:iconify_flutter_plus/iconify_flutter_plus.dart';
 import 'package:colorful_iconify_flutter/icons/logos.dart';
+import 'package:easy_learners/view/utils/common_imports.dart';
 
 class LogScreen extends GetWidget<AuthController> {
   const LogScreen({super.key});
