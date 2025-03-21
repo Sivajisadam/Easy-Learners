@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/home/venkat/development/flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/home/venkat/Android/Sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/home/venkat/my_projects/easy_learners/android/app/.cxx/RelWithDebInfo/75bq1r56/x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/home/venkat/Android/Sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/home/venkat/my_projects/easy_learners/android/app/.cxx/RelWithDebInfo/75bq1r56/x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}

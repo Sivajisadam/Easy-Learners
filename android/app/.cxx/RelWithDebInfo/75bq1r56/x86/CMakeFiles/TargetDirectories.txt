@@ -1,0 +1,2 @@
+/home/venkat/my_projects/easy_learners/android/app/.cxx/RelWithDebInfo/75bq1r56/x86/CMakeFiles/edit_cache.dir
+/home/venkat/my_projects/easy_learners/android/app/.cxx/RelWithDebInfo/75bq1r56/x86/CMakeFiles/rebuild_cache.dir

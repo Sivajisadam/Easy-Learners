@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "925102029459",
+    "project_id": "easy--learners",
+    "storage_bucket": "easy--learners.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:925102029459:android:40dc4f272b125b9e60eb66",
+        "android_client_info": {
+          "package_name": "com.customers.easy_learners"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvpR1cP2RFW9sWCoMK6oQ9RLyFuI0hERc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
