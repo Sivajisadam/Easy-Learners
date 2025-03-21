@@ -1,5 +1,3 @@
-import 'package:easy_learners/_controllers/bottom_nav_controller.dart';
-
 import 'package:easy_learners/view/utils/common_imports.dart';
 
 class ChatScreen extends GetWidget<BottomNavController> {
@@ -7,7 +5,7 @@ class ChatScreen extends GetWidget<BottomNavController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.chatList.aiChat == null ? controller.getUserList() : null;
+    controller.userList.isEmpty ? controller.getUserList() : null;
     controller.update();
     return Obx(
       () => Scaffold(
