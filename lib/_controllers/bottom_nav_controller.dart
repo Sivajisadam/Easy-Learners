@@ -13,8 +13,8 @@ class BottomNavController extends GetxController {
   RxBool isStreaming = false.obs;
 
   ScrollController scrollController = ScrollController();
-  ChatList chatList = ChatList(aiChat: []);
-  RxList<ChatList> totalChat = <ChatList>[].obs;
+  ChatHistory chatHistory = ChatHistory(aiChat: []);
+  RxList<ChatHistory> totalChat = <ChatHistory>[].obs;
   Rx<TextEditingController> promtController = TextEditingController().obs;
   RxBool isChatLoading = false.obs;
   RxList<Users> userList = <Users>[].obs;
@@ -106,9 +106,9 @@ class BottomNavController extends GetxController {
     if (userMessage.isEmpty) return;
 
     final sessionId = DateTime.now().millisecondsSinceEpoch.toString();
-    chatList.sessionId ??= sessionId;
-    chatList.aiChat?.add(AiChat(userRequest: userMessage, aiResponse: ""));
-    printInfo(info: "Session ID: ${chatList.sessionId}");
+    chatHistory.sessionId ??= sessionId;
+    chatHistory.aiChat?.add(AiChat(userRequest: userMessage, aiResponse: ""));
+    printInfo(info: "Session ID: ${chatHistory.sessionId}");
 
     promtController.value.clear();
     isStreaming(true);
@@ -123,8 +123,7 @@ class BottomNavController extends GetxController {
   }
 
   Future getGeminiResponse(String prompt) async {
-    String url =
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${AppUrls.geminiApiKey}";
+    String url = "${AppUrls.chatApi}?key=${AppUrls.geminiApiKey}";
 
     try {
       final response = await http.post(
@@ -157,15 +156,15 @@ class BottomNavController extends GetxController {
           }
         }
 
-        if (chatList.aiChat != null && chatList.aiChat!.isNotEmpty) {
-          int lastIndex = chatList.aiChat!.length - 1;
-          chatList.aiChat![lastIndex] = AiChat(
-              userRequest: chatList.aiChat![lastIndex].userRequest,
+        if (chatHistory.aiChat != null && chatHistory.aiChat!.isNotEmpty) {
+          int lastIndex = chatHistory.aiChat!.length - 1;
+          chatHistory.aiChat![lastIndex] = AiChat(
+              userRequest: chatHistory.aiChat![lastIndex].userRequest,
               aiResponse: streamedText);
-          if (chatList.id == null) {
+          if (chatHistory.id == null) {
             insertUserChat().then((v) {
               printInfo(info: v.toString());
-              chatList.id = v["object"]['id'];
+              chatHistory.id = v["object"]['id'];
             });
           } else {
             updateUserChat();
@@ -175,10 +174,10 @@ class BottomNavController extends GetxController {
         String errorMessage = "Sorry, I couldn't process that request.";
         streamResponse.add(errorMessage);
 
-        if (chatList.aiChat != null && chatList.aiChat!.isNotEmpty) {
-          int lastIndex = chatList.aiChat!.length - 1;
-          chatList.aiChat![lastIndex] = AiChat(
-              userRequest: chatList.aiChat![lastIndex].userRequest,
+        if (chatHistory.aiChat != null && chatHistory.aiChat!.isNotEmpty) {
+          int lastIndex = chatHistory.aiChat!.length - 1;
+          chatHistory.aiChat![lastIndex] = AiChat(
+              userRequest: chatHistory.aiChat![lastIndex].userRequest,
               aiResponse: errorMessage);
         }
       }
@@ -212,7 +211,7 @@ class BottomNavController extends GetxController {
   }
 
   insertUserChat() {
-    final chatListJson = chatList.aiChat
+    final chatListJson = chatHistory.aiChat
         ?.map((chat) =>
             {'userRequest': chat.userRequest, 'aiResponse': chat.aiResponse})
         .toList();
@@ -220,7 +219,7 @@ class BottomNavController extends GetxController {
         .graphqlMutation(ConstantMutationQuaries.insertOne("assistant"), {
       "object": {
         "user_id": auth.currentUser!.uid,
-        "session_id": chatList.sessionId,
+        "session_id": chatHistory.sessionId,
         "messages": chatListJson,
       }
     });
@@ -228,13 +227,13 @@ class BottomNavController extends GetxController {
   }
 
   Future updateUserChat() async {
-    final chatListJson = chatList.aiChat
+    final chatListJson = chatHistory.aiChat
         ?.map((chat) =>
             {'userRequest': chat.userRequest, 'aiResponse': chat.aiResponse})
         .toList();
     final res = ServiceController.to
         .graphqlMutation(ConstantMutationQuaries.updateOne("assistant"), {
-      "id": chatList.id,
+      "id": chatHistory.id,
       "object": {
         "messages": chatListJson,
       }
@@ -242,22 +241,26 @@ class BottomNavController extends GetxController {
     return res;
   }
 
-  Future getUserChat() async {
+  Future getChatHistory() async {
     isChatLoading(true);
-    ServiceController.to.getDataFunction(Queries.getUserChat,
-        {"user_id": auth.currentUser?.uid.toString()}).then((v) {
+    ServiceController.to.getDataFunction(Queries.getChatHistory,
+        {"user_id": auth.currentUser?.uid.toString()}).then((v) async {
       printInfo(info: v.toString());
       RxList data = [].obs;
       data(v.data['data']['assistant']);
-      totalChat(data.map((e) => ChatList.fromJson(e)).toList());
+      totalChat(data.map((e) => ChatHistory.fromJson(e)).toList());
       isChatLoading(false);
+      await HiveStorage.saveData(
+          boxName: HiveStorage.assistantBox,
+          key: "chatHistory",
+          value: v.data['data']['assistant']);
       update();
     });
   }
 
   void clearcurrentChat() {
-    getUserChat();
-    chatList = ChatList(aiChat: []);
+    getChatHistory();
+    chatHistory = ChatHistory(aiChat: []);
     update();
   }
 

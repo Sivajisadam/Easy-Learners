@@ -1,12 +1,5 @@
-import 'package:easy_learners/_controllers/services_controller.dart';
 import 'package:easy_learners/_models/onboarding_model.dart';
-import 'package:easy_learners/view/utils/mutation_queries.dart';
-import 'package:easy_learners/view/utils/reusable_widget.dart';
-import 'package:easy_learners/view/utils/routes.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:easy_learners/view/utils/common_imports.dart';
 
 class AuthController extends GetxController {
   final FirebaseAuth auth = FirebaseAuth.instance;

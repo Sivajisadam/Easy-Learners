@@ -15,7 +15,11 @@ class AssistantScreenState extends State<AssistantScreen> {
     return Scaffold(
       onEndDrawerChanged: (v) {
         if (v == true && controller.totalChat.isEmpty) {
-          controller.getUserChat();
+          controller.getChatHistory();
+        } else {
+          final history = HiveStorage.getData(
+              boxName: HiveStorage.assistantBox, key: "chatHistory");
+          printInfo(info: history.length.toString());
         }
       },
       endDrawer: chatHistoryWidget(controller),
@@ -23,7 +27,7 @@ class AssistantScreenState extends State<AssistantScreen> {
       bottomNavigationBar: assistantField(controller),
       body: GetBuilder<BottomNavController>(
         builder: (controller) {
-          final chatList = controller.chatList.aiChat ?? [];
+          final chatList = controller.chatHistory.aiChat ?? [];
           return Column(
             children: [
               assistantChatList(controller, chatList),

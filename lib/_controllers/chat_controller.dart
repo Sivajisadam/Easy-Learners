@@ -1,11 +1,4 @@
-import 'package:easy_learners/_controllers/services_controller.dart';
-import 'package:easy_learners/_models/user_chat_model.dart';
-import 'package:easy_learners/view/utils/mutation_queries.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:intl/intl.dart';
+import 'package:easy_learners/view/utils/common_imports.dart';
 
 class ChatController extends GetxController {
   static ChatController get to => Get.find<ChatController>();
@@ -16,11 +9,6 @@ class ChatController extends GetxController {
   final ScrollController scrollController = ScrollController();
 
   final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   @override
   void onClose() {

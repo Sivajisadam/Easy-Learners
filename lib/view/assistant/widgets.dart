@@ -146,11 +146,12 @@ Drawer chatHistoryWidget(BottomNavController controller) {
               separatorBuilder: (context, index) => vSpace(8),
               itemCount: controller.totalChat.length,
               shrinkWrap: true,
+              reverse: true,
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
                     Get.back();
-                    controller.chatList = controller.totalChat[index];
+                    controller.chatHistory = controller.totalChat[index];
                     controller.update();
                   },
                   child: reuseContainer(

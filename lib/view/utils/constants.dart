@@ -11,4 +11,6 @@ class AppUrls {
   static String get baseUrl => dotenv.env['BASE_URL'] ?? '';
   static String get apiKey => dotenv.env['API_KEY'] ?? '';
   static String get geminiApiKey => dotenv.env['GEMINI_API_KEY'] ?? '';
+  static String get chatApi =>
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent";
 }

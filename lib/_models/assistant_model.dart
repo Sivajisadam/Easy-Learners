@@ -10,16 +10,16 @@ class AiChat {
   }
 }
 
-class ChatList {
+class ChatHistory {
   String? id;
   String? userId;
   String? sessionId;
   List<AiChat>? aiChat;
 
-  ChatList({this.id, this.userId, this.sessionId, this.aiChat});
+  ChatHistory({this.id, this.userId, this.sessionId, this.aiChat});
 
-  factory ChatList.fromJson(Map<String, dynamic> json) {
-    return ChatList(
+  factory ChatHistory.fromJson(Map<String, dynamic> json) {
+    return ChatHistory(
         id: json['id'],
         userId: json['user_id'],
         sessionId: json['session_id'],

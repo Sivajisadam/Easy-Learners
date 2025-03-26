@@ -11,7 +11,7 @@ class Queries {
   }
 } ''';
 
-  static const String getUserChat =
+  static const String getChatHistory =
       '''query getUserChat(\$user_id: String) @cached {
   assistant(where: {user_id: {_eq: \$user_id}}) {
     id

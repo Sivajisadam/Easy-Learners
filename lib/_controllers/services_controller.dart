@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart' as dio;
-import 'package:easy_learners/view/utils/constants.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:easy_learners/view/utils/common_imports.dart';
 
 class ServiceController extends GetxService {
   static ServiceController to = Get.find<ServiceController>();

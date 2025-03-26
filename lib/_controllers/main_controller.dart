@@ -1,14 +1,8 @@
-import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
-
-import 'package:easy_learners/_controllers/bottom_nav_controller.dart';
-import 'package:easy_learners/view/utils/constants.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:easy_learners/view/utils/common_imports.dart';
 
 class MainController extends GetxController {
   static MainController get to => Get.find<MainController>();
@@ -30,6 +24,8 @@ class MainController extends GetxController {
     checkInternetConnection();
     // Setup connectivity listener
     setupConnectivityListener();
+    // init Hive
+    HiveStorage.init();
     // Try to get user location
     getUserLocation();
     super.onInit();
