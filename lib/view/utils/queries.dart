@@ -32,7 +32,7 @@ class Queries {
 } ''';
 
   static const String searchUsers =
-      '''query searchUser(\$user_id: String,\$name:String) @cached {
+      '''query searchUser(\$user_id: String,\$name:String){
   users(where: {firebase_uid: {_neq: \$user_id}, name: {_ilike: \$name}}) {
     firebase_uid
     email

@@ -21,10 +21,15 @@ class ChatScreen extends GetWidget<BottomNavController> {
                     fontweight: FontWeight.w600),
                 vSpace(30),
                 textField(
-                    fieldController: TextEditingController(),
-                    giveHint: "Search User",
-                    borderColor: Colors.grey.shade300,
-                    onFieldEntry: (v) {}),
+                  fieldController: controller.userSearch.value,
+                  giveHint: "Search User",
+                  borderColor: Colors.grey.shade300,
+                  onFieldEntry: (v) {
+                    controller.debounce(() {
+                      controller.searchUser(v);
+                    }, duration: const Duration(milliseconds: 500));
+                  },
+                ),
                 vSpace(20),
                 ListView.separated(
                     shrinkWrap: true,

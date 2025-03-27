@@ -16,6 +16,8 @@ class BottomNavController extends GetxController {
   ChatHistory chatHistory = ChatHistory(aiChat: []);
   RxList<ChatHistory> totalChat = <ChatHistory>[].obs;
   Rx<TextEditingController> promtController = TextEditingController().obs;
+  Rx<TextEditingController> userSearch = TextEditingController().obs;
+
   RxBool isChatLoading = false.obs;
   RxList<Users> userList = <Users>[].obs;
 
@@ -43,6 +45,7 @@ class BottomNavController extends GetxController {
   @override
   void onClose() {
     streamResponse.close();
+    _debouncer?.cancel();
     super.onClose();
   }
 
@@ -59,7 +62,6 @@ class BottomNavController extends GetxController {
     ServiceController.to.getDataFunction(Queries.getFcm, {
       "token": fcmToken,
     }).then((v) {
-      printInfo(info: v.data['data']['fcm_tokens'].toString());
       v.data['data']['fcm_tokens'].isNotEmpty
           ? updateFcmToken(v.data['data']['fcm_tokens'][0]['id'])
           : updateFcmToken('');
@@ -68,7 +70,6 @@ class BottomNavController extends GetxController {
 
   updateFcmToken(String id) async {
     final fcmToken = await FirebaseMessaging.instance.getToken();
-    printInfo(info: fcmToken.toString());
     if (id.isNotEmpty) {
       ServiceController.to
           .graphqlMutation(ConstantMutationQuaries.updateOne("fcm_tokens"), {
@@ -94,12 +95,9 @@ class BottomNavController extends GetxController {
     await ServiceController.to.getDataFunction(
         Queries.getCurrentUser, {"f_Uid": auth.currentUser!.uid}).then((value) {
       if (value.data.isNotEmpty) {
-        printInfo(info: value.data.toString());
         userDetails = UserDetailsModel.fromJson(value.data['data']['users'][0]);
         isProfileLoading(false);
-      } else {
-        printInfo(info: "No data found");
-      }
+      } else {}
     });
   }
 
@@ -110,7 +108,6 @@ class BottomNavController extends GetxController {
     final sessionId = DateTime.now().millisecondsSinceEpoch.toString();
     chatHistory.sessionId ??= sessionId;
     chatHistory.aiChat?.add(AiChat(userRequest: userMessage, aiResponse: ""));
-    printInfo(info: "Session ID: ${chatHistory.sessionId}");
 
     promtController.value.clear();
     isStreaming(true);
@@ -165,7 +162,6 @@ class BottomNavController extends GetxController {
               aiResponse: streamedText);
           if (chatHistory.id == null) {
             insertUserChat().then((v) {
-              printInfo(info: v.toString());
               chatHistory.id = v["object"]['id'];
             });
           } else {
@@ -247,7 +243,6 @@ class BottomNavController extends GetxController {
     isChatLoading(true);
     ServiceController.to.getDataFunction(Queries.getChatHistory,
         {"user_id": auth.currentUser?.uid.toString()}).then((v) async {
-      printInfo(info: v.toString());
       RxList data = [].obs;
       data(v.data['data']['assistant']);
       totalChat(data.map((e) => ChatHistory.fromJson(e)).toList());
@@ -270,11 +265,10 @@ class BottomNavController extends GetxController {
     ServiceController.to.getDataFunction(Queries.getUserList, {
       "user_id": auth.currentUser?.uid.toString(),
     }).then((v) {
-      printInfo(info: v.toString());
       RxList data = [].obs;
       data(v.data['data']['users']);
       userList(data.map((e) => Users.fromJson(e)).toList());
-      printInfo(info: userList.toString());
+
       update();
     });
   }
@@ -282,14 +276,20 @@ class BottomNavController extends GetxController {
   searchUser(String query) {
     ServiceController.to.getDataFunction(Queries.searchUsers, {
       "user_id": auth.currentUser?.uid.toString(),
-      "search": query,
+      "name": "%$query%",
     }).then((v) {
-      printInfo(info: v.toString());
       RxList data = [].obs;
       data(v.data['data']['users']);
       userList(data.map((e) => Users.fromJson(e)).toList());
-      printInfo(info: userList.toString());
       update();
     });
+  }
+
+  Timer? _debouncer;
+
+  void debounce(VoidCallback callback,
+      {Duration duration = const Duration(milliseconds: 800)}) {
+    if (_debouncer?.isActive ?? false) _debouncer!.cancel();
+    _debouncer = Timer(duration, callback);
   }
 }
