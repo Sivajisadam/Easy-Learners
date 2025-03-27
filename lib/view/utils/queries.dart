@@ -49,6 +49,7 @@ subscription currentChat(\$current_user: String!, \$peer_user: String!) {
         { _and: [{ sent_user: { _eq: \$current_user } }, { recipient_user: { _eq: \$peer_user } }] }
         { _and: [{ sent_user: { _eq: \$peer_user } }, { recipient_user: { _eq: \$current_user } }] }
       ]
+      is_active:{_eq:true}
     }
   ) {
     id

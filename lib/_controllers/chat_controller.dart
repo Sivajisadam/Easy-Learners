@@ -135,4 +135,14 @@ class ChatController extends GetxController {
       return DateFormat("dd MMM yyyy").format(messageDate);
     }
   }
+
+  deleteCurrentChat({required String id}) {
+    ServiceController.to
+        .graphqlMutation(ConstantMutationQuaries.updateOne("chats"), {
+      "id": id,
+      "object": {"is_active": false}
+    });
+    Get.back();
+    userChat = UserChat(messages: <Messages>[]);
+  }
 }

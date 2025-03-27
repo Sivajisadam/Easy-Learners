@@ -1,7 +1,8 @@
-import 'package:iconify_flutter_plus/icons/icon_park_solid.dart';
 import 'package:easy_learners/view/utils/common_imports.dart';
+import 'package:iconify_flutter_plus/icons/icon_park_solid.dart';
 
-AppBar chatAppBar(RxString profilePicture, RxString name) {
+AppBar chatAppBar(RxString profilePicture, RxString name,
+    {Function()? onClearChat, Function()? onBlockUser}) {
   return AppBar(
     forceMaterialTransparency: true,
     leading: Padding(
@@ -27,6 +28,43 @@ AppBar chatAppBar(RxString profilePicture, RxString name) {
         ),
       ],
     ),
+    actions: [
+      PopupMenuButton<String>(
+        position: PopupMenuPosition.under,
+        menuPadding: EdgeInsets.symmetric(horizontal: 16),
+        icon: Icon(Icons.more_vert, size: 24),
+        onSelected: (value) {
+          if (value == 'clear_chat') {
+            onClearChat!();
+          } else if (value == 'block_user') {
+            onBlockUser!();
+          }
+        },
+        itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+          PopupMenuItem<String>(
+            value: 'clear_chat',
+            child: Row(
+              children: [
+                Icon(Icons.delete_sweep, color: ColorConstants.primaryColor),
+                hSpace(8),
+                reusableText(giveText: 'Clear Chat', fontsize: 16),
+              ],
+            ),
+          ),
+          PopupMenuItem<String>(
+            value: 'block_user',
+            child: Row(
+              children: [
+                Icon(Icons.block, color: Colors.red),
+                hSpace(8),
+                reusableText(giveText: 'Block User', fontsize: 16),
+              ],
+            ),
+          ),
+        ],
+      ),
+      hSpace(16)
+    ],
   );
 }
 

@@ -226,7 +226,11 @@ Container reuseContainer({
 }
 
 Future reusabledialogue(
-    {required String text, Function()? ontap, Widget? child}) {
+    {required String text,
+    Function()? ontap,
+    Widget? child,
+    String? confirmText,
+    String? cancleText}) {
   return showDialog(
       context: Get.context!,
       builder: (context) {
@@ -259,11 +263,12 @@ Future reusabledialogue(
                       children: [
                         reuseableOutlineBtn(
                           onTap: ontap ?? () {},
-                          text: "Yes",
+                          text: confirmText ?? "Yes",
+                          width: Get.width / 4,
                         ),
                         reuseableBtn(
                           onTap: () => Get.back(),
-                          text: "No",
+                          text: cancleText ?? "No",
                           // fixedSize: WidgetStatePropertyAll(Size(80, 20)),
                         ),
                       ],

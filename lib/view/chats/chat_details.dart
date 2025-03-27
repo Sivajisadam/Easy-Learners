@@ -1,6 +1,7 @@
 import 'package:easy_learners/view/chats/widgets.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:easy_learners/view/utils/common_imports.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:iconify_flutter_plus/icons/material_symbols.dart';
 
 class ChatDetails extends HookWidget {
   const ChatDetails({super.key});
@@ -25,7 +26,37 @@ class ChatDetails extends HookWidget {
     });
 
     return Scaffold(
-      appBar: chatAppBar(profilePicture, name),
+      appBar: chatAppBar(
+        profilePicture,
+        name,
+        onBlockUser: () {},
+        onClearChat: () {
+          reusabledialogue(
+            text: "Are you sure do you want to exit app?",
+            confirmText: "Clear",
+            cancleText: "Cancel",
+            child: Column(
+              children: [
+                Iconify(
+                  MaterialSymbols.delete_forever,
+                  color: Colors.red,
+                  size: 40,
+                ),
+                vSpace(10),
+                reusableText(
+                    giveText:
+                        "Are you sure do you want to clear this chat. This action can't be undone?",
+                    textColor: Colors.black,
+                    fontsize: 18,
+                    maxLine: 2,
+                    textAlignment: TextAlign.center)
+              ],
+            ),
+            ontap: () => controller.deleteCurrentChat(
+                id: controller.userChat.id.toString()),
+          );
+        },
+      ),
       body: Column(
         children: [
           Expanded(
