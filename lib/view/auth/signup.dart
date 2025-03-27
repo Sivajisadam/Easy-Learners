@@ -16,6 +16,15 @@ class Signup extends GetWidget<AuthController> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.asset(
+                    "assets/app_icon.png",
+                    height: 100,
+                    width: 100,
+                  ),
+                ),
+                vSpace(30),
                 reusableText(
                     giveText: "Create Account",
                     fontsize: 35,
@@ -107,7 +116,7 @@ class Signup extends GetWidget<AuthController> {
                   onTap: () {
                     controller.signInWithGoogle();
                   },
-                  child: !controller.isLoading.value
+                  child: !controller.isGoogleSignIn.value
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -147,7 +156,8 @@ class Signup extends GetWidget<AuthController> {
                           underline: TextDecoration.underline),
                     ),
                   ],
-                )
+                ),
+                vSpace(30)
               ],
             ),
           ),

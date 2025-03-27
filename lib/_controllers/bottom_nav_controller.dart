@@ -1,5 +1,5 @@
-import 'package:http/http.dart' as http;
 import 'package:easy_learners/view/utils/common_imports.dart';
+import 'package:http/http.dart' as http;
 
 class BottomNavController extends GetxController {
   static BottomNavController get to => Get.find<BottomNavController>();
@@ -33,8 +33,10 @@ class BottomNavController extends GetxController {
 
   @override
   void onInit() {
-    getUserList();
-    getUserFcm();
+    if (auth.currentUser != null) {
+      getUserList();
+      getUserFcm();
+    }
     super.onInit();
   }
 

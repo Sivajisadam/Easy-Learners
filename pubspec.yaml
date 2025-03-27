@@ -82,7 +82,7 @@ icons_launcher:
   platforms:
     ios:
       enable: true
-      image_path: "assets/logo.png"
+      image_path: "assets/app_icon.png"
       # dark_path: "assets/logos/ios/Logo_Dark_withBg_NOALPHA.png"
       # tinted_path: "assets/logos/ios/Logo_tinted_NOALPHA.png"
     # android:
@@ -90,7 +90,7 @@ icons_launcher:
     #   image_path: assets/logos/ios/temp_app_icon.png
     android:
       enable: true
-      image_path: "assets/logo.png"
+      image_path: "assets/app_icon.png"
       # notification_image: "assets/logos/android/Logo_rounded.png"
       # adaptive_background_image: "assets/logos/android/Logo_background.png"
       # adaptive_foreground_image: "assets/logos/android/Logo_foreground.png"

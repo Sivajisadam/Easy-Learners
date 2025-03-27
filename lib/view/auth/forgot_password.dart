@@ -12,9 +12,13 @@ class ForgotPasswordScreen extends GetWidget<AuthController> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             vSpace(70),
-            Image.asset(
-              "assets/app_icon.png",
-              height: 100,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.asset(
+                "assets/app_icon.png",
+                height: 100,
+                width: 100,
+              ),
             ),
             vSpace(30),
             reusableText(

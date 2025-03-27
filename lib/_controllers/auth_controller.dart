@@ -56,6 +56,8 @@ class AuthController extends GetxController {
         }).then((value) {
           isGoogleSignIn(false);
           Get.offAllNamed(Routes.bottomNav);
+          BottomNavController.to.getUserList();
+          BottomNavController.to.getUserFcm();
         });
       }
       printInfo(info: userDetails.user.toString());
@@ -85,6 +87,8 @@ class AuthController extends GetxController {
           isLoading(false);
 
           Get.offAllNamed(Routes.bottomNav);
+          BottomNavController.to.getUserList();
+          BottomNavController.to.getUserFcm();
         });
         snackbarWidget(title: "User created successfully");
       }
@@ -101,6 +105,10 @@ class AuthController extends GetxController {
           password: passwordController.text.trim());
       isLoading(false);
       Get.offAllNamed(Routes.bottomNav);
+      if (Get.isRegistered<BottomNavController>()) {
+        BottomNavController.to.getUserList();
+        BottomNavController.to.getUserFcm();
+      }
     } on FirebaseAuthException catch (e) {
       isLoading(false);
       printInfo(info: e.message.toString());

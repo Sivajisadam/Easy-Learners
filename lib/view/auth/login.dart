@@ -18,6 +18,15 @@ class LogScreen extends GetWidget<AuthController> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.asset(
+                      "assets/app_icon.png",
+                      height: 100,
+                      width: 100,
+                    ),
+                  ),
+                  vSpace(30),
                   reusableText(
                       giveText: "Login",
                       fontsize: 35,
@@ -134,7 +143,8 @@ class LogScreen extends GetWidget<AuthController> {
                             underline: TextDecoration.underline),
                       ),
                     ],
-                  )
+                  ),
+                  vSpace(30)
                 ],
               ),
             ),
