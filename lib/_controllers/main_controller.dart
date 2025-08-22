@@ -26,8 +26,9 @@ class MainController extends GetxController {
     setupConnectivityListener();
     // init Hive
     HiveStorage.init();
+    getApiKeys();
     // Try to get user location
-    getUserLocation();
+    // getUserLocation();
     super.onInit();
   }
 
@@ -191,5 +192,24 @@ class MainController extends GetxController {
   // Method to manually retry getting location
   void retryGetLocation() {
     getUserLocation();
+  }
+
+
+  Future getApiKeys() async {
+    await LocalStorage.readData("geminiApiKey").then((value) {
+      if (value!.isEmpty) {
+        ServiceController.to.getDataFunction(Queries.getApiKeys, {}).then(
+          (value) {
+            if (value.data.isNotEmpty) {
+              printInfo(info: value.data["data"]['api_keys'][0].toString());
+              LocalStorage.writeData(
+                  "apiKey", value.data["data"]['api_keys'][0]['apiKey']);
+              LocalStorage.writeData("geminiApiKey",
+                  value.data["data"]['api_keys'][0]['geminiApiKey']);
+            }
+          },
+        );
+      }
+    });
   }
 }

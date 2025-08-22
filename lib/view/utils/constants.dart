@@ -8,9 +8,9 @@ class ColorConstants {
 }
 
 class AppUrls {
-  static String get baseUrl => dotenv.env['BASE_URL'] ?? '';
-  static String get apiKey => dotenv.env['API_KEY'] ?? '';
-  static String get geminiApiKey => dotenv.env['GEMINI_API_KEY'] ?? '';
+  static String get baseUrl => "https://easy-learners.hasura.app/v1/graphql/";
+  static String get apiKey => LocalStorage.readData("apiKey").toString();
+  static String get geminiApiKey => LocalStorage.readData("geminiApiKey").toString();
   static String get chatApi =>
       "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent";
 }

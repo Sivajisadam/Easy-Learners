@@ -7,8 +7,8 @@ import '../_controllers/services_controller.dart';
 class InitBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put(MainController(), permanent: true);
     Get.put(ServiceController(), permanent: true);
+    Get.put(MainController(), permanent: true);
     Get.put(BottomNavController(), permanent: true);
   }
 }

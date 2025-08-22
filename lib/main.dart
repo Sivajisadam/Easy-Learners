@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_learners/_bindings/init_binding.dart';
 import 'package:easy_learners/firebase_options.dart';
 import 'package:easy_learners/view/utils/common_imports.dart';
@@ -8,7 +10,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await dotenv.load(fileName: '.env');
 
   runApp(const MyApp());
 }

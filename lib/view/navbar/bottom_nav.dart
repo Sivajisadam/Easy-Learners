@@ -64,14 +64,14 @@ class BottomNav extends GetWidget<BottomNavController> {
                   ),
                   label: 'Assistant',
                 ),
-                BottomNavigationBarItem(
-                    icon: Iconify(
-                      Majesticons.map_marker,
-                      color: controller.currentIndex.value == 2
-                          ? ColorConstants.primaryColor
-                          : Colors.black38,
-                    ),
-                    label: 'Maps'),
+                // BottomNavigationBarItem(
+                //     icon: Iconify(
+                //       Majesticons.map_marker,
+                //       color: controller.currentIndex.value == 2
+                //           ? ColorConstants.primaryColor
+                //           : Colors.black38,
+                //     ),
+                //     label: 'Maps'),
                 BottomNavigationBarItem(
                   icon: Iconify(
                     Mdi.face_man,

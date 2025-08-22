@@ -83,4 +83,12 @@ query getFcm(\$user_id:String){
   }
 }
  ''';
+
+ static const getApiKeys = '''
+query getApiKeys {
+  api_keys {
+    apiKey
+    geminiApiKey
+  }
+} ''';
 }

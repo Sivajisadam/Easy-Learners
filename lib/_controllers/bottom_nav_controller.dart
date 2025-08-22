@@ -26,7 +26,7 @@ class BottomNavController extends GetxController {
     ChatScreen(),
     AssistantScreen(),
     // MapsScreen(),
-    Search(),
+    // Search(),
     Profile(),
   ].obs;
   UserDetailsModel userDetails = UserDetailsModel();
@@ -122,7 +122,12 @@ class BottomNavController extends GetxController {
   }
 
   Future getGeminiResponse(String prompt) async {
-    String url = "${AppUrls.chatApi}?key=${AppUrls.geminiApiKey}";
+    String geminiApiKey = "";
+   await LocalStorage.readData("geminiApiKey").then((v){
+   geminiApiKey = v.toString();
+    
+   });
+    String url = "${AppUrls.chatApi}?key=$geminiApiKey";
 
     try {
       final response = await http.post(

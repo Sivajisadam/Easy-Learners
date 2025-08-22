@@ -318,7 +318,7 @@ TextFormField textField(
         Color? fillColor}) =>
     TextFormField(
       readOnly: isFieldReadOnly,
-      onTapOutside: (event) => FocusScope.of(Get.context!).unfocus(),
+      // onTapOutside: (event) => FocusScope.of(Get.context!).unfocus(),
       textInputAction: TextInputAction.newline,
       maxLines: fieldMaxLines,
       onTap: onFieldTap,
